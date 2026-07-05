@@ -72,5 +72,5 @@ Page({
 
   goAdd()    { wx.navigateTo({ url: '/pages/todo-add/todo-add' }); },
   goDetail(e) { wx.navigateTo({ url: `/pages/todo-detail/todo-detail?id=${e.currentTarget.dataset.id}` }); },
-  goFilter() { wx.navigateTo({ url: '/pages/category/category' }); }
+  goFilter() { wx.switchTab({ url: '/pages/category/category' }); }
 });

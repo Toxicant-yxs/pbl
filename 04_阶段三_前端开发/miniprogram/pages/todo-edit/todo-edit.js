@@ -44,7 +44,7 @@ Page({
           title: todo.title || '',
           description: todo.description || '',
           priority: todo.priority ?? 2,
-          category_id: todo.category_id || (cats[0]?.id || null),
+          category_id: todo.category_id != null ? todo.category_id : (cats[0]?.id ?? null),
           deadline,
           remind_time: remindTime || '23:59',
           is_pinned: !!todo.is_pinned

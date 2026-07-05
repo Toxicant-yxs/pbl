@@ -15,12 +15,13 @@ router.post('/subscribe', async (req, res) => {
   res.json({ code: 0, msg: '订阅成功' });
 });
 
-router.get('/pending', auth, async (req, res) => {
+router.get('/pending', async (req, res) => {
   const [rows] = await pool.query(
     `SELECT r.*, t.title FROM reminders r
      JOIN todos t ON r.todo_id = t.id
-     WHERE r.is_sent = 0 AND r.remind_time <= NOW() AND t.is_completed = 0
-     ORDER BY r.remind_time LIMIT 100`
+     WHERE r.user_id = ? AND r.is_sent = 0 AND r.remind_time <= NOW() AND t.is_completed = 0
+     ORDER BY r.remind_time LIMIT 100`,
+    [req.user.id]
   );
   res.json({ code: 0, data: rows });
 });

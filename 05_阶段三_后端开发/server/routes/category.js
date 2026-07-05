@@ -9,7 +9,7 @@ router.use(auth);
 router.get('/', async (req, res) => {
   const [rows] = await pool.query(
     `SELECT c.id, c.name, c.color, c.sort_order,
-       (SELECT COUNT(*) FROM todos t WHERE t.category_id = c.id) AS count
+       (SELECT COUNT(*) FROM todos t WHERE t.category_id = c.id AND t.user_id = c.user_id) AS count
      FROM categories c WHERE c.user_id = ? ORDER BY c.sort_order, c.id`,
     [req.user.id]
   );

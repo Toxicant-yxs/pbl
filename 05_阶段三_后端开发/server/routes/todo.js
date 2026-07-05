@@ -5,6 +5,13 @@ const router = express.Router();
 const pool = require('../config/db');
 const auth = require('../middleware/auth');
 
+function toMysqlDate(v) {
+  if (!v) return null;
+  const d = v instanceof Date ? v : new Date(v);
+  if (isNaN(d.getTime())) return null;
+  return d;
+}
+
 router.use(auth);
 
 // GET /api/todos
@@ -62,16 +69,19 @@ router.post('/', [
   if (!errors.isEmpty()) return res.status(400).json({ code: 400, msg: errors.array()[0].msg });
   const { title, description, category_id, priority = 0, deadline, remind_at, is_pinned = false } = req.body;
 
+  const dbDeadline = toMysqlDate(deadline);
+  const dbRemindAt = toMysqlDate(remind_at);
+
   const [r] = await pool.query(
     `INSERT INTO todos (user_id, category_id, title, description, priority, deadline, remind_at, is_pinned)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [req.user.id, category_id, title, description, priority, deadline, remind_at, is_pinned ? 1 : 0]
+    [req.user.id, category_id, title, description, priority, dbDeadline, dbRemindAt, is_pinned ? 1 : 0]
   );
 
-  if (remind_at) {
+  if (dbRemindAt) {
     await pool.query(
       'INSERT INTO reminders (todo_id, user_id, remind_time) VALUES (?, ?, ?)',
-      [r.insertId, req.user.id, remind_at]
+      [r.insertId, req.user.id, dbRemindAt]
     );
   }
 
@@ -87,12 +97,25 @@ router.get('/:id', async (req, res) => {
     [req.params.id, req.user.id]
   );
   if (!rows.length) return res.status(404).json({ code: 404, msg: '待办不存在' });
-  res.json({ code: 0, data: rows[0] });
+  const t = rows[0];
+  res.json({
+    code: 0,
+    data: {
+      ...t,
+      is_pinned: !!t.is_pinned,
+      is_completed: !!t.is_completed,
+      category: t.cat_name ? { id: t.category_id, name: t.cat_name, color: t.cat_color } : null,
+      cat_name: undefined,
+      cat_color: undefined
+    }
+  });
 });
 
 // PUT /api/todos/:id
 router.put('/:id', async (req, res) => {
   const { title, description, category_id, priority, deadline, remind_at, is_pinned } = req.body;
+  const dbDeadline = toMysqlDate(deadline);
+  const dbRemindAt = toMysqlDate(remind_at);
   await pool.query(
     `UPDATE todos SET
        title = COALESCE(?, title),
@@ -103,10 +126,18 @@ router.put('/:id', async (req, res) => {
        remind_at = ?,
        is_pinned = COALESCE(?, is_pinned)
      WHERE id = ? AND user_id = ?`,
-    [title, description, category_id, priority, deadline, remind_at,
+    [title, description, category_id, priority, dbDeadline, dbRemindAt,
      is_pinned !== undefined ? (is_pinned ? 1 : 0) : null,
      req.params.id, req.user.id]
   );
+  // 同步 reminders 表：先删旧记录，若有新提醒时间则插入
+  await pool.query('DELETE FROM reminders WHERE todo_id = ? AND user_id = ?', [req.params.id, req.user.id]);
+  if (dbRemindAt) {
+    await pool.query(
+      'INSERT INTO reminders (todo_id, user_id, remind_time) VALUES (?, ?, ?)',
+      [req.params.id, req.user.id, dbRemindAt]
+    );
+  }
   res.json({ code: 0, msg: '更新成功' });
 });
 
