@@ -1,0 +1,21 @@
+<view class="page">
+  <view class="hero">
+    <view class="av">{{avatarText}}</view>
+    <view class="nm">{{user.nickname || '未登录用户'}}</view>
+    <view class="id">UID · {{user.id}} · 软件工程</view>
+    <view class="stat-row">
+      <view class="c"><text class="b">{{profile.totalTodos || 0}}</text><text class="l">总待办</text></view>
+      <view class="c"><text class="b">{{profile.completed || 0}}</text><text class="l">已完成</text></view>
+      <view class="c"><text class="b">{{Math.round((profile.completionRate||0)*100)}}%</text><text class="l">总完成率</text></view>
+    </view>
+  </view>
+
+  <view class="menu">
+    <view class="mi"><view class="ic">▣</view><view class="tx">我的待办记录</view><view class="arr">›</view></view>
+    <view class="mi" bindtap="goStats"><view class="ic">◔</view><view class="tx">数据统计</view><view class="badge">NEW</view><view class="arr">›</view></view>
+    <view class="mi" bindtap="goCategory"><view class="ic">▤</view><view class="tx">分类管理</view><view class="arr">›</view></view>
+    <view class="mi"><view class="ic">◐</view><view class="tx">提醒设置</view><view class="arr">›</view></view>
+    <view class="mi"><view class="ic">⚙</view><view class="tx">账号与隐私</view><view class="arr">›</view></view>
+    <view class="mi" bindtap="onLogout"><view class="ic logout">⏻</view><view class="tx logout">退出登录</view><view class="arr">›</view></view>
+  </view>
+</view>

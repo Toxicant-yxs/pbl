@@ -1,0 +1,16 @@
+<view class="todo {{item.is_completed ? 'done' : ''}}" bindtap="onTap">
+  <view class="check {{item.is_completed ? 'checked' : ''}}" catchtap="onToggle">
+    <text wx:if="{{item.is_completed}}">✓</text>
+  </view>
+  <view class="body">
+    <view class="t">{{item.title}}</view>
+    <view class="meta">
+      <text class="tag cat" wx:if="{{item.category}}">{{item.category.name}}</text>
+      <text class="tag {{item.priority === 3 ? 'high' : (item.priority === 2 ? 'med' : 'low')}}">
+        {{PRIORITY[item.priority]}}
+      </text>
+      <text class="tag" wx:if="{{item.deadlineText}}">{{item.deadlineText}}</text>
+    </view>
+  </view>
+  <text class="pin" wx:if="{{item.is_pinned}}">📌</text>
+</view>

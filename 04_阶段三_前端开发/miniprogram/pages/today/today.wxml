@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="head">
+    <view class="greet">
+      <view>
+        <view class="date">{{today}}</view>
+      </view>
+      <view class="avatar">{{avatarText}}</view>
+    </view>
+    <view class="title">今日，<text class="accent">{{totalCount}}</text> 项<br>待办事项</view>
+
+    <view class="stats">
+      <view class="stat">
+        <view class="num">{{completedCount}}</view>
+        <view class="lbl">已完成</view>
+      </view>
+      <view class="stat">
+        <view class="num">{{pendingCount}}</view>
+        <view class="lbl">进行中</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="progress-label">
+    <text>今日完成度</text>
+    <text>{{progressPercent}}%</text>
+  </view>
+  <view class="progress"><view class="bar" style="width: {{progressPercent}}%"></view></view>
+
+  <view class="section-h">
+    <text class="t">待办列表</text>
+    <text class="more" bindtap="goFilter">查看全部 →</text>
+  </view>
+
+  <view class="list" wx:if="{{todoList.length > 0}}">
+    <view class="todo {{item.is_completed ? 'done' : ''}}" wx:for="{{todoList}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="check {{item.is_completed ? 'checked' : ''}}" catchtap="toggleComplete" data-id="{{item.id}}" data-completed="{{item.is_completed}}">
+        <text wx:if="{{item.is_completed}}">✓</text>
+      </view>
+      <view class="body">
+        <view class="t-title">{{item.title}}</view>
+        <view class="meta">
+          <text class="tag cat" wx:if="{{item.category}}">{{item.category.name}}</text>
+          <text class="tag {{item.priority === 3 ? 'high' : (item.priority === 2 ? 'med' : 'low')}}">
+            {{priorityText[item.priority]}}
+          </text>
+          <text class="tag" wx:if="{{item.deadline}}">{{item.deadlineText}}</text>
+        </view>
+      </view>
+      <text class="pin" wx:if="{{item.is_pinned}}">📌</text>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <view class="ic">▢</view>
+    <view class="tx">暂无待办，点击 + 新建</view>
+  </view>
+
+  <view class="fab" bindtap="goAdd">+</view>
+</view>
