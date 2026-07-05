@@ -1,0 +1,39 @@
+.login {
+  min-height: 100vh;
+  padding: 80rpx 56rpx 56rpx;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+.brand { display: flex; align-items: center; gap: 20rpx; margin-bottom: 120rpx; }
+.brand .dot { width: 24rpx; height: 24rpx; background: var(--vermillion); border-radius: 50%; }
+.brand .name { font-size: 36rpx; font-weight: 700; letter-spacing: 0.1em; }
+.title { font-family: "Songti SC", serif; font-size: 80rpx; font-weight: 900; line-height: 1.1; }
+.title .accent { color: var(--vermillion); }
+.sub { font-size: 26rpx; color: var(--ink-3); line-height: 1.6; margin: 32rpx 0 80rpx; }
+.field { margin-bottom: 32rpx; border-bottom: 1rpx solid var(--ink-4); padding-bottom: 16rpx; }
+.field .lbl { display: block; font-size: 20rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-bottom: 8rpx; }
+.field .ipt { width: 100%; font-size: 36rpx; font-family: "Songti SC", serif; }
+.btn {
+  margin-top: 48rpx;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 36rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  border-radius: 8rpx;
+}
+.alt { margin-top: 32rpx; text-align: center; font-size: 24rpx; color: var(--ink-3); }
+.alt .link { color: var(--vermillion); font-weight: 600; }
+.quote {
+  margin-top: auto;
+  padding-top: 32rpx;
+  border-top: 1rpx solid var(--ink);
+  font-family: "Songti SC", serif;
+  font-size: 24rpx;
+  color: var(--ink-3);
+  font-style: italic;
+  line-height: 1.6;
+}

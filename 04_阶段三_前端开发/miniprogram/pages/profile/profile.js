@@ -6,7 +6,8 @@ Page({
   data: {
     user: {},
     avatarText: '我',
-    profile: {}
+    profile: {},
+    completionRateText: '0%'
   },
 
   onShow() {
@@ -18,7 +19,9 @@ Page({
   async loadProfile() {
     try {
       const data = await request({ url: '/user/profile' });
-      this.setData({ profile: data.stats || {} });
+      const stats = data.stats || {};
+      const rate = Math.round((stats.completionRate || 0) * 100);
+      this.setData({ profile: stats, completionRateText: rate + '%' });
     } catch (e) {}
   },
 

@@ -1,0 +1,53 @@
+<view class="page" wx:if="{{todo}}">
+  <view class="head">
+    <text class="back" bindtap="goBack">← 返回</text>
+    <text class="t">详情</text>
+    <text class="edit" bindtap="goEdit">编辑</text>
+  </view>
+
+  <view class="body">
+    <view class="title-row">
+      <view class="check {{todo.isCompleted ? 'checked' : ''}}" bindtap="toggleComplete">
+        <text wx:if="{{todo.isCompleted}}">✓</text>
+      </view>
+      <view class="title {{todo.isCompleted ? 'done' : ''}}">{{todo.title}}</view>
+    </view>
+
+    <view class="pin-row" bindtap="togglePin">
+      <text class="pin-ic">{{todo.isPinned ? '📌' : '📍'}}</text>
+      <text class="pin-tx">{{todo.isPinned ? '已置顶' : '置顶待办'}}</text>
+    </view>
+
+    <view class="info-card" wx:if="{{todo.description}}">
+      <view class="lbl">DESCRIPTION · 描述</view>
+      <view class="desc">{{todo.description}}</view>
+    </view>
+
+    <view class="meta-grid">
+      <view class="meta-item">
+        <view class="m-lbl">优先级</view>
+        <view class="m-val">
+          <text class="tag {{todo.priority === 3 ? 'high' : (todo.priority === 2 ? 'med' : 'low')}}">{{priorityText[todo.priority]}}</text>
+        </view>
+      </view>
+      <view class="meta-item">
+        <view class="m-lbl">状态</view>
+        <view class="m-val {{todo.isCompleted ? 'done-text' : ''}}">{{todo.isCompleted ? '已完成' : '进行中'}}</view>
+      </view>
+      <view class="meta-item">
+        <view class="m-lbl">分类</view>
+        <view class="m-val">{{todo.category ? todo.category.name : '无分类'}}</view>
+      </view>
+      <view class="meta-item">
+        <view class="m-lbl">截止时间</view>
+        <view class="m-val">{{todo.deadlineText}}</view>
+      </view>
+      <view class="meta-item full">
+        <view class="m-lbl">创建时间</view>
+        <view class="m-val">{{todo.createdText}}</view>
+      </view>
+    </view>
+
+    <view class="btn-delete" bindtap="onDelete">删除此待办</view>
+  </view>
+</view>

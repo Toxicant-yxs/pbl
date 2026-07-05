@@ -1,0 +1,60 @@
+<view class="page" wx:if="{{!loading}}">
+  <view class="head">
+    <text class="back" bindtap="goBack">← 返回</text>
+    <text class="t">编辑待办</text>
+    <text class="save" bindtap="onSave">保存</text>
+  </view>
+
+  <view class="body">
+    <view class="group">
+      <text class="lbl">Title · 待办内容</text>
+      <input class="ipt title" placeholder="请输入待办内容" value="{{form.title}}" bindinput="onTitle" maxlength="200" />
+    </view>
+
+    <view class="group">
+      <text class="lbl">Description · 描述（可选）</text>
+      <textarea class="ipt desc" placeholder="详细说明（选填）" value="{{form.description}}" bindinput="onDesc" auto-height />
+    </view>
+
+    <view class="group">
+      <text class="lbl">Priority · 优先级</text>
+      <view class="chips">
+        <view class="chip {{form.priority === 3 ? 'active high' : ''}}" bindtap="setPriority" data-p="3">紧急</view>
+        <view class="chip {{form.priority === 2 ? 'active' : ''}}" bindtap="setPriority" data-p="2">中等</view>
+        <view class="chip {{form.priority === 1 ? 'active' : ''}}" bindtap="setPriority" data-p="1">较低</view>
+        <view class="chip {{form.priority === 0 ? 'active' : ''}}" bindtap="setPriority" data-p="0">无</view>
+      </view>
+    </view>
+
+    <view class="group">
+      <text class="lbl">Category · 分类</text>
+      <view class="chips">
+        <view class="chip {{form.category_id === item.id ? 'active' : ''}}"
+              wx:for="{{categories}}" wx:key="id"
+              bindtap="setCategory" data-id="{{item.id}}">{{item.name}}</view>
+      </view>
+    </view>
+
+    <view class="row">
+      <picker mode="date" value="{{form.deadline}}" bindchange="onDate">
+        <view class="opt">
+          <view class="ic">▣</view>
+          <view class="lbl">截止日期</view>
+          <view class="vl">{{form.deadline || '未设置'}}</view>
+        </view>
+      </picker>
+      <picker mode="time" value="{{form.remind_time}}" bindchange="onTime">
+        <view class="opt">
+          <view class="ic">◐</view>
+          <view class="lbl">提醒时间</view>
+          <view class="vl">{{form.remind_time || '未设置'}}</view>
+        </view>
+      </picker>
+    </view>
+
+    <view class="switch-row">
+      <view class="tx">置顶待办<text>在列表顶部显示</text></view>
+      <switch checked="{{form.is_pinned}}" bindchange="onPinSwitch" color="#c8462c" />
+    </view>
+  </view>
+</view>

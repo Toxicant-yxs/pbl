@@ -6,7 +6,7 @@
     <view class="stat-row">
       <view class="c"><text class="b">{{profile.totalTodos || 0}}</text><text class="l">总待办</text></view>
       <view class="c"><text class="b">{{profile.completed || 0}}</text><text class="l">已完成</text></view>
-      <view class="c"><text class="b">{{Math.round((profile.completionRate||0)*100)}}%</text><text class="l">总完成率</text></view>
+      <view class="c"><text class="b">{{completionRateText}}</text><text class="l">总完成率</text></view>
     </view>
   </view>
 
