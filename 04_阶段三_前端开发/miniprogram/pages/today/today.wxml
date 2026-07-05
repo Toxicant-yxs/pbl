@@ -6,7 +6,7 @@
       </view>
       <view class="avatar">{{avatarText}}</view>
     </view>
-    <view class="title">今日，<text class="accent">{{totalCount}}</text> 项<br>待办事项</view>
+    <view class="title">今日，<text class="accent">{{totalCount}}</text><text class="br"></text>项待办事项</view>
 
     <view class="stats">
       <view class="stat">

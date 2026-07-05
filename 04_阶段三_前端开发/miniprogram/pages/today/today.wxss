@@ -6,6 +6,7 @@
 .avatar { width: 72rpx; height: 72rpx; background: var(--ink); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28rpx; font-weight: 700; }
 .title { font-family: "Songti SC", serif; font-size: 88rpx; font-weight: 900; line-height: 1; }
 .title .accent { color: var(--vermillion); }
+.title .br { display: block; height: 0; }
 .stats { margin-top: 40rpx; display: flex; border-top: 1rpx solid var(--ink); border-bottom: 1rpx solid var(--ink); }
 .stat { flex: 1; padding: 24rpx 0; }
 .stat + .stat { border-left: 1rpx solid var(--ink); padding-left: 32rpx; }
