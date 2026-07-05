@@ -1,0 +1,24 @@
+.page { min-height: 100vh; background: var(--paper); }
+.head { padding: 24rpx 56rpx 32rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid var(--ink); }
+.head .back { font-size: 24rpx; color: var(--ink-3); }
+.head .t { font-family: "Songti SC", serif; font-size: 36rpx; font-weight: 700; }
+.head .edit { font-size: 28rpx; color: var(--vermillion); font-weight: 700; }
+.body { padding: 40rpx 56rpx 120rpx; }
+.title-row { display: flex; gap: 24rpx; align-items: flex-start; }
+.check { width: 56rpx; height: 56rpx; border: 3rpx solid var(--ink); border-radius: 50%; flex-shrink: 0; margin-top: 8rpx; display: flex; align-items: center; justify-content: center; font-size: 28rpx; }
+.check.checked { background: var(--vermillion); border-color: var(--vermillion); color: var(--paper); }
+.title { font-family: "Songti SC", serif; font-size: 48rpx; font-weight: 700; line-height: 1.3; flex: 1; }
+.title.done { text-decoration: line-through; color: var(--ink-4); }
+.pin-row { display: flex; align-items: center; gap: 16rpx; margin-top: 32rpx; padding: 20rpx 24rpx; background: var(--paper-2); border-radius: 12rpx; }
+.pin-ic { font-size: 32rpx; }
+.pin-tx { font-family: "Songti SC", serif; font-size: 28rpx; }
+.info-card { margin-top: 40rpx; padding: 32rpx; border: 1rpx solid var(--ink-3); border-radius: 12rpx; }
+.lbl { font-size: 20rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-bottom: 16rpx; }
+.desc { font-size: 28rpx; line-height: 1.7; color: var(--ink-2); }
+.meta-grid { margin-top: 48rpx; display: grid; grid-template-columns: 1fr 1fr; gap: 1rpx; background: var(--ink); border: 1rpx solid var(--ink); }
+.meta-item { background: var(--paper); padding: 28rpx 32rpx; }
+.meta-item.full { grid-column: 1 / -1; }
+.m-lbl { font-size: 18rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-bottom: 12rpx; }
+.m-val { font-family: "Songti SC", serif; font-size: 28rpx; font-weight: 700; }
+.m-val.done-text { color: var(--jade); }
+.btn-delete { margin-top: 80rpx; text-align: center; padding: 32rpx 0; border: 1rpx solid var(--vermillion); color: var(--vermillion); border-radius: 8rpx; font-size: 28rpx; letter-spacing: 0.2em; }

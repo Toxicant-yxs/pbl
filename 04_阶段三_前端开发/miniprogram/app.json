@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/register/register",
+    "pages/today/today",
+    "pages/category/category",
+    "pages/category-todos/category-todos",
+    "pages/todo-add/todo-add",
+    "pages/todo-edit/todo-edit",
+    "pages/todo-detail/todo-detail",
+    "pages/stats/stats",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#f3ece1",
+    "navigationBarTitleText": "待办 · TODO",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3ece1"
+  },
+  "tabBar": {
+    "color": "#8a7f72",
+    "selectedColor": "#c8462c",
+    "backgroundColor": "#f3ece1",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/today/today",    "text": "今日" },
+      { "pagePath": "pages/category/category", "text": "分类" },
+      { "pagePath": "pages/stats/stats",    "text": "统计" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

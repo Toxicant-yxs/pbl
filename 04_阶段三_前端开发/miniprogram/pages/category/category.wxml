@@ -1,0 +1,32 @@
+<view class="page">
+  <view class="head">
+    <view class="title">分类<text class="accent">管理</text></view>
+    <view class="sub">CATEGORY · {{categories.length}} 个分类</view>
+  </view>
+
+  <view class="list">
+    <view class="cat-item" wx:for="{{categories}}" wx:key="id" bindtap="goCategoryTodos" data-id="{{item.id}}" data-name="{{item.name}}">
+      <view class="dot" style="background: {{item.color}}"></view>
+      <view class="body">
+        <view class="name">{{item.name}}</view>
+        <view class="count">{{item.count}} 项待办</view>
+      </view>
+      <view class="del" catchtap="onDelete" data-id="{{item.id}}">×</view>
+    </view>
+  </view>
+
+  <view class="add-area" wx:if="{{showAdd}}">
+    <input class="ipt" placeholder="输入分类名称" value="{{newName}}" bindinput="onNameInput" maxlength="10" focus="{{showAdd}}" />
+    <view class="row-btns">
+      <view class="btn-cancel" bindtap="toggleAdd">取消</view>
+      <view class="btn-ok" bindtap="onAddCategory">确定</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{categories.length === 0 && !showAdd}}">
+    <view class="ic">▤</view>
+    <view class="tx">暂无分类，点击 + 添加</view>
+  </view>
+
+  <view class="fab" bindtap="toggleAdd" wx:if="{{!showAdd}}">+</view>
+</view>

@@ -1,0 +1,18 @@
+.page { min-height: 100vh; background: var(--paper); }
+.hero { padding: 48rpx 56rpx 56rpx; border-bottom: 1rpx solid var(--ink); }
+.av { width: 160rpx; height: 160rpx; background: var(--ink); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Songti SC", serif; font-size: 64rpx; font-weight: 700; margin-bottom: 32rpx; }
+.nm { font-family: "Songti SC", serif; font-size: 52rpx; font-weight: 700; }
+.id { font-size: 22rpx; color: var(--ink-4); margin-top: 12rpx; letter-spacing: 0.2em; }
+.stat-row { display: flex; margin-top: 40rpx; border-top: 1rpx dashed var(--ink-4); padding-top: 32rpx; }
+.c { flex: 1; text-align: center; border-right: 1rpx solid var(--ink-4); }
+.c:last-child { border-right: 0; }
+.c .b { font-family: "Songti SC", serif; font-size: 44rpx; font-weight: 700; }
+.c .l { display: block; font-size: 18rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-top: 8rpx; }
+.menu { padding: 16rpx 56rpx; }
+.mi { display: flex; align-items: center; padding: 32rpx 0; border-bottom: 1rpx solid var(--ink-4); gap: 28rpx; }
+.ic { width: 64rpx; height: 64rpx; background: var(--paper-2); border-radius: 16rpx; display: flex; align-items: center; justify-content: center; font-size: 32rpx; }
+.ic.logout { background: var(--vermillion); color: var(--paper); }
+.tx { flex: 1; font-family: "Songti SC", serif; font-size: 30rpx; }
+.tx.logout { color: var(--vermillion); }
+.arr { color: var(--ink-4); font-size: 36rpx; }
+.badge { background: var(--vermillion); color: var(--paper); font-size: 20rpx; padding: 4rpx 12rpx; border-radius: 16rpx; }

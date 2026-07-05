@@ -1,0 +1,29 @@
+<view class="login">
+  <view class="brand">
+    <view class="dot"></view>
+    <text class="name">待办 · TODO</text>
+  </view>
+
+  <view class="title">
+    <text>创建</text><text class="accent">新账号</text><text>。</text>
+  </view>
+  <view class="sub">注册一个账号，开始记录你生活中的每一件小事。</view>
+
+  <view class="field">
+    <text class="lbl">ACCOUNT · 账号</text>
+    <input class="ipt" placeholder="4-20位字符" bindinput="onUsername" value="{{username}}" maxlength="20" />
+  </view>
+  <view class="field">
+    <text class="lbl">NICKNAME · 昵称（选填）</text>
+    <input class="ipt" placeholder="你的昵称" bindinput="onNickname" value="{{nickname}}" maxlength="20" />
+  </view>
+  <view class="field">
+    <text class="lbl">PASSWORD · 密码</text>
+    <input class="ipt" password placeholder="6-20位密码" bindinput="onPassword" value="{{password}}" maxlength="20" />
+  </view>
+
+  <view class="btn" bindtap="onRegister">注 册</view>
+  <view class="alt">已有账号？<text class="link" bindtap="goLogin">返回登录</text></view>
+
+  <view class="quote">千里之行，始于足下。</view>
+</view>

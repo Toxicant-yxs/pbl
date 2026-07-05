@@ -1,0 +1,22 @@
+.page { min-height: 100vh; background: var(--paper); }
+.head { padding: 24rpx 56rpx 32rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid var(--ink); }
+.head .back { font-size: 24rpx; color: var(--ink-3); }
+.head .t { font-family: "Songti SC", serif; font-size: 36rpx; font-weight: 700; }
+.head .save { font-size: 28rpx; color: var(--vermillion); font-weight: 700; }
+.body { padding: 24rpx 56rpx 80rpx; }
+.group { margin-top: 48rpx; }
+.lbl { display: block; font-size: 20rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-bottom: 16rpx; }
+.ipt.title { font-family: "Songti SC", serif; font-size: 44rpx; font-weight: 700; border-bottom: 4rpx solid var(--ink); padding: 16rpx 0; }
+.ipt.desc { font-size: 28rpx; line-height: 1.5; padding: 16rpx 0; min-height: 120rpx; }
+.chips { display: flex; gap: 16rpx; flex-wrap: wrap; }
+.chip { font-size: 24rpx; padding: 16rpx 28rpx; border: 1rpx solid var(--ink-3); color: var(--ink-3); border-radius: 48rpx; }
+.chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip.high.active { background: var(--vermillion); border-color: var(--vermillion); }
+.row { display: flex; gap: 16rpx; margin-top: 48rpx; }
+.opt { flex: 1; border: 1rpx solid var(--ink-3); padding: 28rpx; border-radius: 16rpx; }
+.opt .ic { font-size: 36rpx; margin-bottom: 8rpx; }
+.opt .lbl { font-size: 18rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-bottom: 8rpx; }
+.opt .vl { font-family: "Songti SC", serif; font-size: 28rpx; font-weight: 700; }
+.switch-row { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 0; border-top: 1rpx solid var(--ink-4); }
+.switch-row .tx { font-family: "Songti SC", serif; font-size: 28rpx; }
+.switch-row .tx text { display: block; font-family: -apple-system; font-size: 22rpx; color: var(--ink-4); margin-top: 4rpx; font-weight: normal; }

@@ -1,0 +1,19 @@
+.page { min-height: 100vh; padding: 24rpx 56rpx 160rpx; background: var(--paper); position: relative; }
+.head { padding-bottom: 32rpx; border-bottom: 1rpx solid var(--ink); margin-bottom: 24rpx; }
+.head .title { font-family: "Songti SC", serif; font-size: 72rpx; font-weight: 900; line-height: 1.1; }
+.head .title .accent { color: var(--vermillion); }
+.head .sub { font-size: 20rpx; letter-spacing: 0.4em; color: var(--ink-4); margin-top: 12rpx; }
+.list { padding-top: 16rpx; }
+.cat-item { display: flex; align-items: center; gap: 28rpx; padding: 36rpx 0; border-bottom: 1rpx dashed var(--ink-4); }
+.dot { width: 24rpx; height: 24rpx; border-radius: 50%; flex-shrink: 0; }
+.body { flex: 1; }
+.name { font-family: "Songti SC", serif; font-size: 34rpx; font-weight: 700; }
+.count { font-size: 22rpx; color: var(--ink-4); margin-top: 8rpx; letter-spacing: 0.1em; }
+.del { width: 56rpx; height: 56rpx; display: flex; align-items: center; justify-content: center; font-size: 40rpx; color: var(--ink-4); }
+.add-area { position: fixed; bottom: 0; left: 0; right: 0; background: var(--paper-2); padding: 32rpx 56rpx; border-top: 1rpx solid var(--ink); }
+.ipt { background: var(--paper); border: 1rpx solid var(--ink-3); border-radius: 8rpx; padding: 24rpx; font-size: 30rpx; margin-bottom: 20rpx; font-family: "Songti SC", serif; }
+.row-btns { display: flex; gap: 20rpx; }
+.btn-cancel, .btn-ok { flex: 1; text-align: center; padding: 24rpx 0; border-radius: 8rpx; font-size: 28rpx; font-weight: 700; }
+.btn-cancel { border: 1rpx solid var(--ink-3); color: var(--ink-3); }
+.btn-ok { background: var(--ink); color: var(--paper); }
+.fab { position: fixed; right: 56rpx; bottom: 160rpx; width: 112rpx; height: 112rpx; background: var(--ink); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 56rpx; font-weight: 300; box-shadow: 0 24rpx 48rpx -16rpx rgba(26,22,18,.4); }
