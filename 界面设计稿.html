@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>待办 Todo · 个人待办事项管理小程序 · 界面设计稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ece1;
+    --paper-2: #ebe2d3;
+    --paper-3: #e3d8c4;
+    --ink: #1a1612;
+    --ink-2: #2a2520;
+    --ink-3: #4a4239;
+    --ink-4: #8a7f72;
+    --line: #1a1612;
+    --vermillion: #c8462c;
+    --vermillion-2: #a83923;
+    --jade: #4a6b4a;
+    --ochre: #c8973a;
+    --shadow: rgba(26,22,18,.12);
+    --serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+    --sans: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+  body {
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(200,70,44,.06), transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(74,107,74,.05), transparent 50%),
+      repeating-linear-gradient(45deg, transparent 0 2px, rgba(26,22,18,.012) 2px 4px),
+      var(--paper);
+    min-height: 100vh;
+    padding: 48px 32px 80px;
+  }
+
+  /* ====== HEADER ====== */
+  .doc-header {
+    max-width: 1440px;
+    margin: 0 auto 56px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 24px;
+  }
+  .doc-header .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 18px;
+    display: flex;
+    gap: 24px;
+  }
+  .doc-header .meta span::before {
+    content: "§";
+    margin-right: 6px;
+    color: var(--vermillion);
+  }
+  .doc-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .doc-header h1 em {
+    font-style: normal;
+    color: var(--vermillion);
+    display: inline-block;
+    transform: translateY(-4px);
+  }
+  .doc-header .lede {
+    margin-top: 20px;
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-3);
+    max-width: 720px;
+  }
+  .doc-header .tape {
+    display: inline-block;
+    background: var(--vermillion);
+    color: var(--paper);
+    padding: 4px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+  }
+
+  /* ====== SECTION TITLE ====== */
+  .section {
+    max-width: 1440px;
+    margin: 0 auto 80px;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 16px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--vermillion);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ====== SCREENS GRID ====== */
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 48px 32px;
+    justify-items: center;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .phone-label {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .phone-label small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .phone-label em {
+    color: var(--vermillion);
+    font-style: normal;
+  }
+
+  .phone {
+    width: 320px;
+    height: 660px;
+    background: var(--ink);
+    border-radius: 44px;
+    padding: 10px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.05) inset,
+      0 30px 60px -20px rgba(26,22,18,.35),
+      0 12px 24px -8px rgba(26,22,18,.25);
+    position: relative;
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    width: 100px; height: 26px;
+    background: var(--ink);
+    border-radius: 0 0 14px 14px;
+    z-index: 10;
+  }
+  .phone::after {
+    content: "";
+    position: absolute;
+    top: 28px; left: 50%;
+    transform: translateX(-30px);
+    width: 8px; height: 8px;
+    background: #2a2520;
+    border-radius: 50%;
+    z-index: 11;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--paper);
+    border-radius: 36px;
+    overflow: hidden;
+    position: relative;
+  }
+  .statusbar {
+    height: 44px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .statusbar .right { display: flex; gap: 6px; align-items: center; }
+  .statusbar .bar {
+    width: 18px; height: 10px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    position: relative;
+  }
+  .statusbar .bar::after {
+    content: ""; position: absolute; left: 1px; top: 1px;
+    width: 12px; height: 6px; background: var(--ink);
+  }
+
+  /* ====== SCREEN 1: LOGIN ====== */
+  .login {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 44px);
+    padding: 32px 28px 28px;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(200,70,44,.08), transparent 50%),
+      var(--paper);
+  }
+  .login .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 56px;
+  }
+  .login .brand .dot {
+    width: 12px; height: 12px;
+    background: var(--vermillion);
+    border-radius: 50%;
+  }
+  .login .brand .name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .login h2 {
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .login h2 em { color: var(--vermillion); font-style: normal; }
+  .login .sub {
+    font-size: 13px;
+    color: var(--ink-3);
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+  .login .field {
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--ink-4);
+    padding-bottom: 8px;
+  }
+  .login .field label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 4px;
+  }
+  .login .field input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--ink);
+    outline: none;
+  }
+  .login .field input::placeholder { color: var(--ink-4); }
+  .login .btn {
+    margin-top: 24px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    border-radius: 4px;
+  }
+  .login .alt {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+  .login .alt span { color: var(--vermillion); font-weight: 600; }
+  .login .quote {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink);
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--ink-3);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .login .quote::before {
+    content: "“";
+    font-size: 32px;
+    color: var(--vermillion);
+    line-height: 0;
+    vertical-align: -12px;
+    margin-right: 4px;
+    font-family: var(--serif);
+  }
+
+  /* ====== SCREEN 2: TODAY (HOME) ====== */
+  .today {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 44px);
+    background: var(--paper);
+  }
+  .today .head {
+    padding: 12px 24px 20px;
+  }
+  .today .greet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .today .greet .date {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .today .greet .avatar {
+    width: 36px; height: 36px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .today h1 {
+    font-family: var(--serif);
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .today h1 em { color: var(--vermillion); font-style: normal; }
+  .today .stats {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .today .stat {
+    padding: 12px 0;
+    border-right: 1px solid var(--ink);
+  }
+  .today .stat:last-child { border-right: 0; padding-left: 16px; }
+  .today .stat:first-child { padding-right: 16px; }
+  .today .stat .num {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .today .stat .lbl {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 4px;
+  }
+  .today .progress {
+    margin: 0 24px 16px;
+    height: 4px;
+    background: var(--paper-3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .today .progress > div {
+    height: 100%;
+    width: 65%;
+    background: var(--vermillion);
+  }
+  .today .progress-label {
+    padding: 0 24px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+  }
+  .today .section-h {
+    padding: 8px 24px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .today .section-h h3 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .today .section-h .more {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--vermillion);
+    letter-spacing: 0.15em;
+  }
+  .today .list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 24px 100px;
+  }
+  .todo {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--ink-4);
+    align-items: flex-start;
+  }
+  .todo:last-child { border-bottom: 0; }
+  .todo .check {
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .todo.done .check {
+    background: var(--vermillion);
+    border-color: var(--vermillion);
+    color: var(--paper);
+    font-size: 12px;
+  }
+  .todo .body { flex: 1; min-width: 0; }
+  .todo .title {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .todo.done .title {
+    text-decoration: line-through;
+    color: var(--ink-4);
+  }
+  .todo .meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border: 1px solid var(--ink-3);
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .tag.high { background: var(--vermillion); color: var(--paper); border-color: var(--vermillion); }
+  .tag.med { border-color: var(--ochre); color: var(--ochre); }
+  .tag.low { border-color: var(--jade); color: var(--jade); }
+  .tag.cat { background: var(--ink); color: var(--paper); }
+  .todo .pin {
+    color: var(--vermillion);
+    font-size: 12px;
+    margin-left: auto;
+  }
+  .today .fab {
+    position: absolute;
+    right: 24px;
+    bottom: 80px;
+    width: 56px; height: 56px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 300;
+    box-shadow: 0 12px 24px -8px rgba(26,22,18,.4);
+  }
+  .tabbar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 72px;
+    background: var(--paper);
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 8px 12px;
+  }
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .tab .ic { font-size: 18px; }
+  .tab.active { color: var(--vermillion); }
+  .tab.active::before {
+    content: ""; width: 16px; height: 2px;
+    background: var(--vermillion);
+  }
+
+  /* ====== SCREEN 3: ADD TODO ====== */
+  .add {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 44px);
+    background: var(--paper);
+  }
+  .add .head {
+    padding: 8px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ink);
+  }
+  .add .back {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+  }
+  .add .head h2 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .add .head .save {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--vermillion);
+  }
+  .add .body {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .add label.lbl {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+  .add label.lbl:first-child { margin-top: 0; }
+  .add .title-in {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    outline: none;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  .add .title-in::placeholder { color: var(--ink-4); }
+  .add .desc-in {
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    width: 100%;
+    border: 0;
+    background: transparent;
+    outline: none;
+    padding: 8px 0;
+    resize: none;
+    height: 60px;
+  }
+  .add .chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .chip {
+    font-family: var(--sans);
+    font-size: 12px;
+    padding: 8px 14px;
+    border: 1px solid var(--ink-3);
+    color: var(--ink-3);
+    border-radius: 24px;
+  }
+  .chip.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .chip.high.active { background: var(--vermillion); border-color: var(--vermillion); }
+  .add .row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .add .opt {
+    flex: 1;
+    border: 1px solid var(--ink-3);
+    padding: 14px;
+    border-radius: 8px;
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .add .opt .ic { font-size: 18px; margin-bottom: 4px; }
+  .add .opt .vl {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 4px;
+  }
+  .add .opt .vl b {
+    display: block;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .add .switch-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-top: 1px solid var(--ink-4);
+  }
+  .add .switch-row .tx {
+    font-family: var(--serif);
+    font-size: 14px;
+  }
+  .add .switch-row .tx small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--ink-4);
+    margin-top: 2px;
+  }
+  .switch {
+    width: 44px; height: 24px;
+    background: var(--ink-4);
+    border-radius: 12px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .switch::after {
+    content: "";
+    position: absolute;
+    width: 20px; height: 20px;
+    background: var(--paper);
+    border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: 0.2s;
+  }
+  .switch.on { background: var(--vermillion); }
+  .switch.on::after { left: 22px; }
+
+  /* ====== SCREEN 4: STATS ====== */
+  .stats-screen {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 44px);
+    background: var(--paper);
+  }
+  .stats-screen .head {
+    padding: 8px 24px 20px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .stats-screen .head h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .stats-screen .head h2 em { color: var(--vermillion); font-style: normal; }
+  .stats-screen .head .sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 6px;
+  }
+  .stats-screen .body {
+    flex: 1;
+    padding: 20px 24px 80px;
+    overflow-y: auto;
+  }
+  .ring-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0 24px;
+  }
+  .ring {
+    width: 200px; height: 200px;
+    position: relative;
+  }
+  .ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+  .ring circle {
+    fill: none;
+    stroke-width: 14;
+    stroke-linecap: round;
+  }
+  .ring .bg { stroke: var(--paper-3); }
+  .ring .fg { stroke: var(--vermillion); stroke-dasharray: 376.99; stroke-dashoffset: 113; }
+  .ring .num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .ring .num b {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .ring .num span {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 6px;
+  }
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    margin-bottom: 24px;
+  }
+  .grid2 .cell {
+    background: var(--paper);
+    padding: 16px;
+  }
+  .grid2 .cell .n {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .grid2 .cell .l {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 6px;
+  }
+  .grid2 .cell .d {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--jade);
+    margin-top: 6px;
+  }
+  .bar-chart {
+    border: 1px solid var(--ink);
+    padding: 16px;
+  }
+  .bar-chart .h {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .bar-chart .h h4 {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .bar-chart .h span {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-4);
+    letter-spacing: 0.2em;
+  }
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 100px;
+  }
+  .bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .bar-col .b {
+    width: 100%;
+    background: var(--ink);
+    border-radius: 2px 2px 0 0;
+  }
+  .bar-col.peak .b { background: var(--vermillion); }
+  .bar-col span {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-4);
+  }
+
+  /* ====== SCREEN 5: PROFILE ====== */
+  .profile {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 44px);
+    background: var(--paper);
+  }
+  .profile .hero {
+    padding: 24px 24px 28px;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  .profile .hero::after {
+    content: "个人中心";
+    position: absolute;
+    top: 16px; right: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .profile .av {
+    width: 80px; height: 80px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .profile .nm {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .profile .id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-4);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+  .profile .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    border-top: 1px dashed var(--ink-4);
+    padding-top: 16px;
+  }
+  .profile .stat-row .c {
+    text-align: center;
+    border-right: 1px solid var(--ink-4);
+  }
+  .profile .stat-row .c:last-child { border-right: 0; }
+  .profile .stat-row b {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .profile .stat-row span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 4px;
+  }
+  .profile .menu {
+    flex: 1;
+    padding: 8px 24px;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ink-4);
+    gap: 14px;
+  }
+  .menu-item .ic {
+    width: 32px; height: 32px;
+    background: var(--paper-2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .menu-item .tx {
+    flex: 1;
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .menu-item .arr {
+    color: var(--ink-4);
+    font-size: 18px;
+  }
+  .menu-item .badge {
+    background: var(--vermillion);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 8px;
+  }
+
+  /* ====== ANNOTATIONS ====== */
+  .annot {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    line-height: 1.6;
+    max-width: 320px;
+    padding: 16px;
+    border: 1px dashed var(--ink-3);
+    background: rgba(255,255,255,.3);
+  }
+  .annot b { color: var(--vermillion); }
+
+  /* ====== COLOR/SYS ====== */
+  .sys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .swatch {
+    border: 1px solid var(--ink);
+  }
+  .swatch .chip-color {
+    height: 120px;
+  }
+  .swatch .info {
+    padding: 12px 16px;
+    background: var(--paper);
+  }
+  .swatch .info .n {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .swatch .info .h {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    margin-top: 4px;
+  }
+  .type-card {
+    border: 1px solid var(--ink);
+    padding: 24px;
+    background: var(--paper);
+  }
+  .type-card .name {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 8px;
+  }
+  .type-card .sample {
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .type-card.serif .sample { font-family: var(--serif); font-weight: 900; font-size: 48px; letter-spacing: -0.02em; }
+  .type-card.sans .sample { font-family: var(--sans); font-weight: 700; font-size: 40px; }
+  .type-card.mono .sample { font-family: var(--mono); font-size: 24px; letter-spacing: 0.1em; }
+
+  /* ====== FOOTER ====== */
+  .doc-footer {
+    max-width: 1440px;
+    margin: 0 auto;
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .doc-footer em { color: var(--vermillion); font-style: normal; }
+
+  /* subtle paper grain */
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <div class="tape">PBL · 训练营 · 第20号课题</div>
+  <div class="meta">
+    <span>Project № 020</span>
+    <span>Tech · 微信小程序 + Node.js + Express + MySQL</span>
+    <span>Author · 张桂莲 / 2024级软件工程</span>
+  </div>
+  <h1>个人待办<em>事项</em><br>管理小程序</h1>
+  <p class="lede">一份基于"项目驱动、实操落地"的微信小程序界面设计稿。从登录、添加、统计到个人中心，采用杂志编辑风格的版式与中式留白美学，让待办管理回归纸笔的仪式感。</p>
+</header>
+
+<!-- SCREENS -->
+<section class="section">
+  <div class="section-head">
+    <span class="section-num">§ 01</span>
+    <h2 class="section-title">界面设计稿 · 6 Screens</h2>
+    <span class="section-sub">6 screens · 320×660 pt</span>
+  </div>
+
+  <div class="screens">
+
+    <!-- 1. LOGIN -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="login">
+            <div class="brand">
+              <div class="dot"></div>
+              <div class="name">待办 · TODO</div>
+            </div>
+            <h2>你好，<br><em>欢迎回来</em>。</h2>
+            <p class="sub">登录后即可查看、管理你今日所有的待办事项，让每一项任务都井然有序。</p>
+            <div class="field">
+              <label>Account · 账号</label>
+              <input value="zhang@2024.edu" readonly>
+            </div>
+            <div class="field">
+              <label>Password · 密码</label>
+              <input type="password" value="••••••••" readonly>
+            </div>
+            <div class="btn">登 录</div>
+            <div class="alt">还没有账号？<span>立即注册</span></div>
+            <div class="quote">把每一件小事做到极致，便是不凡。</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">登录页<small>LOGIN · 01</small></div>
+    </div>
+
+    <!-- 2. TODAY -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="today">
+            <div class="head">
+              <div class="greet">
+                <div>
+                  <div class="date">WED · 11月 13日</div>
+                </div>
+                <div class="avatar">桂</div>
+              </div>
+              <h1>今日，<em>5</em> 项<br>待办事项</h1>
+              <div class="stats">
+                <div class="stat">
+                  <div class="num">3</div>
+                  <div class="lbl">已完成</div>
+                </div>
+                <div class="stat">
+                  <div class="num">2</div>
+                  <div class="lbl">进行中</div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-label">
+              <span>今日完成度</span>
+              <span>60%</span>
+            </div>
+            <div class="progress"><div></div></div>
+
+            <div class="section-h">
+              <h3>待办列表</h3>
+              <span class="more">查看全部 →</span>
+            </div>
+
+            <div class="list">
+              <div class="todo done">
+                <div class="check">✓</div>
+                <div class="body">
+                  <div class="title">提交PBL训练营选题表</div>
+                  <div class="meta">
+                    <span class="tag cat">学习</span>
+                    <span class="tag low">低</span>
+                    <span class="tag">10:00</span>
+                  </div>
+                </div>
+                <span class="pin">★</span>
+              </div>
+              <div class="todo">
+                <div class="check"></div>
+                <div class="body">
+                  <div class="title">完成《Node.js+Express》后端接口开发</div>
+                  <div class="meta">
+                    <span class="tag cat">学习</span>
+                    <span class="tag high">紧急</span>
+                    <span class="tag">今天 18:00</span>
+                  </div>
+                </div>
+                <span class="pin">📌</span>
+              </div>
+              <div class="todo">
+                <div class="check"></div>
+                <div class="body">
+                  <div class="title">采购生活用品与水果</div>
+                  <div class="meta">
+                    <span class="tag cat">生活</span>
+                    <span class="tag med">中</span>
+                    <span class="tag">明天</span>
+                  </div>
+                </div>
+              </div>
+              <div class="todo">
+                <div class="check"></div>
+                <div class="body">
+                  <div class="title">小组会议：评审原型图</div>
+                  <div class="meta">
+                    <span class="tag cat">工作</span>
+                    <span class="tag high">紧急</span>
+                    <span class="tag">今天 15:00</span>
+                  </div>
+                </div>
+                <span class="pin">📌</span>
+              </div>
+              <div class="todo done">
+                <div class="check">✓</div>
+                <div class="body">
+                  <div class="title">背诵英语单词30个</div>
+                  <div class="meta">
+                    <span class="tag cat">学习</span>
+                    <span class="tag low">低</span>
+                    <span class="tag">08:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fab">+</div>
+
+            <div class="tabbar">
+              <div class="tab active"><span class="ic">◐</span><span>今日</span></div>
+              <div class="tab"><span class="ic">▤</span><span>分类</span></div>
+              <div class="tab"><span class="ic">◔</span><span>统计</span></div>
+              <div class="tab"><span class="ic">◉</span><span>我的</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">今日待办<small>TODAY · 02</small></div>
+    </div>
+
+    <!-- 3. ADD -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="add">
+            <div class="head">
+              <span class="back">← 返回</span>
+              <h2>新建待办</h2>
+              <span class="save">保存</span>
+            </div>
+            <div class="body">
+              <label class="lbl">Title · 待办内容</label>
+              <input class="title-in" value="完成课程设计报告初稿" readonly>
+
+              <label class="lbl">Description · 描述（可选）</label>
+              <textarea class="desc-in" readonly>梳理系统设计章节，补充ER图与接口文档说明。</textarea>
+
+              <label class="lbl">Priority · 优先级</label>
+              <div class="chips">
+                <div class="chip high active">紧急</div>
+                <div class="chip">中等</div>
+                <div class="chip">较低</div>
+                <div class="chip">无</div>
+              </div>
+
+              <label class="lbl">Category · 分类</label>
+              <div class="chips">
+                <div class="chip">学习</div>
+                <div class="chip active">工作</div>
+                <div class="chip">生活</div>
+                <div class="chip">健康</div>
+                <div class="chip">其他</div>
+              </div>
+
+              <div class="row">
+                <div class="opt">
+                  <div class="ic">▣</div>
+                  <div class="vl">截止日期<b>11月15日</b></div>
+                </div>
+                <div class="opt">
+                  <div class="ic">◐</div>
+                  <div class="vl">提醒时间<b>20:00</b></div>
+                </div>
+              </div>
+
+              <div class="switch-row">
+                <div class="tx">截止前消息提醒<small>提前 30 分钟推送</small></div>
+                <div class="switch on"></div>
+              </div>
+              <div class="switch-row">
+                <div class="tx">置顶待办<small>在列表顶部显示</small></div>
+                <div class="switch"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">添加待办<small>NEW · 03</small></div>
+    </div>
+
+    <!-- 4. STATS -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="stats-screen">
+            <div class="head">
+              <h2>完成率 <em>70%</em></h2>
+              <div class="sub">本周数据 · WEEKLY</div>
+            </div>
+            <div class="body">
+              <div class="ring-wrap">
+                <div class="ring">
+                  <svg viewBox="0 0 140 140">
+                    <circle class="bg" cx="70" cy="70" r="60"></circle>
+                    <circle class="fg" cx="70" cy="70" r="60"></circle>
+                  </svg>
+                  <div class="num">
+                    <b>70%</b>
+                    <span>本周完成率</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="cell">
+                  <div class="n">21</div>
+                  <div class="l">已完成</div>
+                  <div class="d">↑ 较上周 +12</div>
+                </div>
+                <div class="cell">
+                  <div class="n">9</div>
+                  <div class="l">未完成</div>
+                  <div class="d">↓ 较上周 -3</div>
+                </div>
+                <div class="cell">
+                  <div class="n">5</div>
+                  <div class="l">连续打卡</div>
+                  <div class="d">days · 天</div>
+                </div>
+                <div class="cell">
+                  <div class="n">2.4</div>
+                  <div class="l">日均完成</div>
+                  <div class="d">items / day</div>
+                </div>
+              </div>
+
+              <div class="bar-chart">
+                <div class="h">
+                  <h4>近7日完成趋势</h4>
+                  <span>DAILY</span>
+                </div>
+                <div class="bars">
+                  <div class="bar-col"><div class="b" style="height:30%"></div><span>一</span></div>
+                  <div class="bar-col"><div class="b" style="height:50%"></div><span>二</span></div>
+                  <div class="bar-col peak"><div class="b" style="height:90%"></div><span>三</span></div>
+                  <div class="bar-col"><div class="b" style="height:60%"></div><span>四</span></div>
+                  <div class="bar-col"><div class="b" style="height:40%"></div><span>五</span></div>
+                  <div class="bar-col"><div class="b" style="height:70%"></div><span>六</span></div>
+                  <div class="bar-col"><div class="b" style="height:55%"></div><span>日</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tab"><span class="ic">◐</span><span>今日</span></div>
+              <div class="tab"><span class="ic">▤</span><span>分类</span></div>
+              <div class="tab active"><span class="ic">◔</span><span>统计</span></div>
+              <div class="tab"><span class="ic">◉</span><span>我的</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">数据统计<small>STATS · 04</small></div>
+    </div>
+
+    <!-- 5. CATEGORY FILTER -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="today">
+            <div class="head">
+              <div class="greet">
+                <div>
+                  <div class="date">CATEGORIES · 分类</div>
+                </div>
+              </div>
+              <h1>共 <em>4</em> 个<br>待办分类</h1>
+            </div>
+            <div class="list" style="padding:8px 24px 100px;">
+              <div class="todo">
+                <div class="check" style="background:var(--ink);border-color:var(--ink);color:var(--paper);font-size:11px;font-weight:700;">学</div>
+                <div class="body">
+                  <div class="title" style="font-size:17px;font-weight:700;">学习 · Study</div>
+                  <div class="meta">
+                    <span class="tag">12 项待办</span>
+                    <span class="tag" style="border-color:var(--vermillion);color:var(--vermillion);">3 紧急</span>
+                  </div>
+                </div>
+                <span class="arr" style="color:var(--ink-4);font-size:18px;">→</span>
+              </div>
+              <div class="todo">
+                <div class="check" style="background:var(--vermillion);border-color:var(--vermillion);color:var(--paper);font-size:11px;font-weight:700;">工</div>
+                <div class="body">
+                  <div class="title" style="font-size:17px;font-weight:700;">工作 · Work</div>
+                  <div class="meta">
+                    <span class="tag">6 项待办</span>
+                    <span class="tag" style="border-color:var(--ochre);color:var(--ochre);">2 中等</span>
+                  </div>
+                </div>
+                <span class="arr" style="color:var(--ink-4);font-size:18px;">→</span>
+              </div>
+              <div class="todo">
+                <div class="check" style="background:var(--jade);border-color:var(--jade);color:var(--paper);font-size:11px;font-weight:700;">生</div>
+                <div class="body">
+                  <div class="title" style="font-size:17px;font-weight:700;">生活 · Life</div>
+                  <div class="meta">
+                    <span class="tag">8 项待办</span>
+                    <span class="tag">1 紧急</span>
+                  </div>
+                </div>
+                <span class="arr" style="color:var(--ink-4);font-size:18px;">→</span>
+              </div>
+              <div class="todo">
+                <div class="check" style="background:var(--ochre);border-color:var(--ochre);color:var(--paper);font-size:11px;font-weight:700;">健</div>
+                <div class="body">
+                  <div class="title" style="font-size:17px;font-weight:700;">健康 · Health</div>
+                  <div class="meta">
+                    <span class="tag">4 项待办</span>
+                    <span class="tag">0 紧急</span>
+                  </div>
+                </div>
+                <span class="arr" style="color:var(--ink-4);font-size:18px;">→</span>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tab"><span class="ic">◐</span><span>今日</span></div>
+              <div class="tab active"><span class="ic">▤</span><span>分类</span></div>
+              <div class="tab"><span class="ic">◔</span><span>统计</span></div>
+              <div class="tab"><span class="ic">◉</span><span>我的</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">分类筛选<small>FILTER · 05</small></div>
+    </div>
+
+    <!-- 6. PROFILE -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="right"><span>5G</span><div class="bar"></div></div>
+          </div>
+          <div class="profile">
+            <div class="hero">
+              <div class="av">桂</div>
+              <div class="nm">张桂莲</div>
+              <div class="id">UID · 20240101 · 软件工程</div>
+              <div class="stat-row">
+                <div class="c"><b>89</b><span>总待办</span></div>
+                <div class="c"><b>76</b><span>已完成</span></div>
+                <div class="c"><b>85%</b><span>总完成率</span></div>
+              </div>
+            </div>
+            <div class="menu">
+              <div class="menu-item">
+                <div class="ic">▣</div>
+                <div class="tx">我的待办记录</div>
+                <span class="arr">›</span>
+              </div>
+              <div class="menu-item">
+                <div class="ic">◔</div>
+                <div class="tx">数据统计</div>
+                <span class="badge">NEW</span>
+                <span class="arr">›</span>
+              </div>
+              <div class="menu-item">
+                <div class="ic">▤</div>
+                <div class="tx">分类管理</div>
+                <span class="arr">›</span>
+              </div>
+              <div class="menu-item">
+                <div class="ic">◐</div>
+                <div class="tx">提醒设置</div>
+                <span class="arr">›</span>
+              </div>
+              <div class="menu-item">
+                <div class="ic">⚙</div>
+                <div class="tx">账号与隐私</div>
+                <span class="arr">›</span>
+              </div>
+              <div class="menu-item">
+                <div class="ic" style="background:var(--vermillion);color:var(--paper);">⏻</div>
+                <div class="tx" style="color:var(--vermillion);">退出登录</div>
+                <span class="arr">›</span>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tab"><span class="ic">◐</span><span>今日</span></div>
+              <div class="tab"><span class="ic">▤</span><span>分类</span></div>
+              <div class="tab"><span class="ic">◔</span><span>统计</span></div>
+              <div class="tab active"><span class="ic">◉</span><span>我的</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">个人中心<small>PROFILE · 06</small></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DESIGN SYSTEM -->
+<section class="section">
+  <div class="section-head">
+    <span class="section-num">§ 02</span>
+    <h2 class="section-title">设计系统 · Design Tokens</h2>
+    <span class="section-sub">Editorial · 报刊美学</span>
+  </div>
+
+  <div class="sys-grid">
+    <div class="swatch">
+      <div class="chip-color" style="background:#f3ece1"></div>
+      <div class="info">
+        <div class="n">宣纸 · Paper</div>
+        <div class="h">#F3ECE1 · 主背景</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="chip-color" style="background:#1a1612"></div>
+      <div class="info">
+        <div class="n">墨色 · Ink</div>
+        <div class="h">#1A1612 · 主文字</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="chip-color" style="background:#c8462c"></div>
+      <div class="info">
+        <div class="n">朱砂 · Vermillion</div>
+        <div class="h">#C8462C · 主点缀</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="chip-color" style="background:#4a6b4a"></div>
+      <div class="info">
+        <div class="n">青竹 · Jade</div>
+        <div class="h">#4A6B4A · 辅助</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="chip-color" style="background:#c8973a"></div>
+      <div class="info">
+        <div class="n">赭石 · Ochre</div>
+        <div class="h">#C8973A · 强调</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sys-grid" style="margin-top:32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+    <div class="type-card serif">
+      <div class="name">DISPLAY · 标题</div>
+      <div class="sample">Aa 字体</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-4);margin-top:12px;letter-spacing:0.15em;">NOTO SERIF SC · 900</div>
+    </div>
+    <div class="type-card sans">
+      <div class="name">BODY · 正文</div>
+      <div class="sample">Aa Font</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-4);margin-top:12px;letter-spacing:0.15em;">INTER · 400/700</div>
+    </div>
+    <div class="type-card mono">
+      <div class="name">META · 标签</div>
+      <div class="sample">09:41 AM</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-4);margin-top:12px;letter-spacing:0.15em;">JETBRAINS MONO</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section">
+  <div class="section-head">
+    <span class="section-num">§ 03</span>
+    <h2 class="section-title">系统架构 · Architecture</h2>
+    <span class="section-sub">3-Tier · 前后端分离</span>
+  </div>
+
+  <div style="max-width:1440px;margin:0 auto;border:1px solid var(--ink);padding:32px;background:var(--paper);">
+    <pre style="font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--ink);white-space:pre-wrap;">
+┌────────────────────────────────────────────────────────────────────┐
+│                   微信小程序端  (WeChat Mini Program)                │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
+│  │  Pages   │  │Components│  │  Store   │  │  Utils   │           │
+│  │  页面层  │  │ 组件层   │  │ 状态管理 │  │  工具    │           │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘           │
+│       └──────────────┴─────────────┴──────────────┘                │
+│                          │ wx.request                              │
+└──────────────────────────┼─────────────────────────────────────────┘
+                           ▼
+┌────────────────────────────────────────────────────────────────────┐
+│             Node.js + Express 后端  (RESTful API)                  │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
+│  │  Router  │→ │Controller│→ │  Service │→ │   DAO    │           │
+│  │  路由层  │  │ 控制器   │  │ 业务逻辑 │  │ 数据访问 │           │
+│  └──────────┘  └──────────┘  └──────────┘  └────┬─────┘           │
+│       中间件：cors · json · jwt · morgan · 参数校验                │
+└────────────────────────────────────────────────┼────────────────────┘
+                                                 ▼
+┌────────────────────────────────────────────────────────────────────┐
+│                  MySQL 数据库  (或 MongoDB)                        │
+│  users · todos · categories · reminders · statistics               │
+└────────────────────────────────────────────────────────────────────┘</pre>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <span>PBL训练营 · 第20号课题 · 个人待办事项管理小程序</span>
+  <span>指导老师：<em>张桂莲</em> · 第17周</span>
+  <span>FIN.</span>
+</footer>
+
+</body>
+</html>
