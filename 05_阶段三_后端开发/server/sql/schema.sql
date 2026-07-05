@@ -80,7 +80,7 @@ CREATE TABLE reminders (
 
 -- 初始演示数据
 INSERT INTO users (username, password, nickname) VALUES
-('demo', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '演示用户');
+('demo', '$2b$10$/Qy9l3KWHCkD67fTsrvFduN0Hw9XylcGgvoU7VqNBZ4TdnBZaWBGG', '演示用户');
 
 INSERT INTO categories (user_id, name, color, sort_order) VALUES
 (1, '学习', '#1a1612', 1),
